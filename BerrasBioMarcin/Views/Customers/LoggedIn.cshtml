@@ -1,0 +1,10 @@
+﻿@{
+    ViewBag.Title = "LoggedIn";
+}
+
+@if (HttpContext.Session.Get("CustomerId") != null)
+{
+    
+Hello, @Session["UserName"].ToString();
+
+}
