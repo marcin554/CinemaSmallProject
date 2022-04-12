@@ -1,4 +1,4 @@
-﻿@model IEnumerable<BerrasBioMarcin.Models.Genres>
+﻿@model IEnumerable<BerrasBioMarcin.Models.Genre>
 
 @{
     ViewData["Title"] = "Index";
@@ -13,7 +13,7 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.GenresName)
+                @Html.DisplayNameFor(model => model.GenreName)
             </th>
             <th></th>
         </tr>
@@ -22,12 +22,12 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.GenresName)
+                @Html.DisplayFor(modelItem => item.GenreName)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.GenresId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.GenresId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.GenresId">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.GenreId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.GenreId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.GenreId">Delete</a>
             </td>
         </tr>
 }

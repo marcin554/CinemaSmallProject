@@ -58,19 +58,21 @@ namespace BerrasBioMarcin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register([Bind("CustomerId,FirstName,LastName,DateOfBirth,Email,PhoneNumber,Password,ConfirmPassword")] Customer customer)
+        public async Task<IActionResult> Register([Bind("CustomerId,UserName,FirstName,LastName,DateOfBirth,Email,PhoneNumber,Password,ConfirmPassword")] Customer customer)
         {
             if (ModelState.IsValid)
             {
                 using (_context)
                 {
-                    var get_user = _context.Customer.FirstOrDefault(p => p.FirstName == customer.FirstName);
-                    if (get_user == null)
+                    var check = _context.Customer.FirstOrDefault(s => s.UserName == customer.UserName);
+                    if (check == null)
                     {
-                        customer.Password = AESCryptography.Encrypt(customer.Password);
-                        customer.ConfirmPassword = AESCryptography.Encrypt(customer.ConfirmPassword);
+                        customer.Password = customer.Password;
+                        customer.ConfirmPassword = customer.ConfirmPassword;
                         _context.Customer.Add(customer);
                         await _context.SaveChangesAsync();
+                      
+
                     }
                     else
                     {
@@ -90,7 +92,15 @@ namespace BerrasBioMarcin.Controllers
 
         public ActionResult Login()
         {
-            return View();
+            object obj = HttpContext.Session.GetString("UserName");
+            if (obj == null)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("LoggedIn");
+            }
         }
 
         [HttpPost]
@@ -100,18 +110,25 @@ namespace BerrasBioMarcin.Controllers
             using (_context)
             {
 
-                var get_customer = _context.Customer.Single(p => p.FirstName == customer.FirstName
-                && p.Password == customer.Password);
-                if (get_customer != null)
-                {
-                    HttpContext.Session.SetString("CustomerId", get_customer.CustomerId.ToString());
-                    HttpContext.Session.SetString("CustomerName", get_customer.FirstName.ToString());
-                    return RedirectToAction("LoggedIn");
-                }
-                else
-                {
-                    ModelState.AddModelError("", "Username or Password does not match.");
-                }
+                //Customer get_customer = _context.Customer.Single(p => p.FirstName == customer.FirstName
+                //&& p.Password == customer.Password);
+                //(p => p.UserName == customer.UserName && p.Password == customer.Password);
+                
+               
+                    Customer get_customer = _context.Customer.Where(p => p.UserName == customer.UserName && p.Password == customer.Password).FirstOrDefault();
+                    if (get_customer != null)
+                    {
+                        HttpContext.Session.SetString("CustomerId", get_customer.CustomerId.ToString());
+                        HttpContext.Session.SetString("UserName", get_customer.UserName.ToString());
+                        return RedirectToAction("LoggedIn");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "Username or Password does not match.");
+                    }
+                
+              
+                
                 return View();
             }
         }
@@ -121,13 +138,15 @@ namespace BerrasBioMarcin.Controllers
             object obj = HttpContext.Session.Get("CustomerId");
             if (obj != null)
             {
+                ViewBag.Message = HttpContext.Session.GetString("UserName");
+                
                 return View();
             }
             else
             {
                 return RedirectToAction("Login");
             }
-
+            
         }
 
         // GET: Customers/Edit/5

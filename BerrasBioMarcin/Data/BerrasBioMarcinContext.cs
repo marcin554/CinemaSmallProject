@@ -17,9 +17,13 @@ namespace BerrasBioMarcin.Data
 
         public DbSet<BerrasBioMarcin.Models.Movie> Movie { get; set; }
 
-        public DbSet<BerrasBioMarcin.Models.Genres> Genres { get; set; }
+        public DbSet<BerrasBioMarcin.Models.Genre> Genres { get; set; }
 
         public DbSet<BerrasBioMarcin.Models.Customer> Customer { get; set; }
+
+        public DbSet<BerrasBioMarcin.Models.Cinema> Cinema { get; set; }
+
+        public DbSet<BerrasBioMarcin.Models.Salon> Salon { get; set; }
 
 
     }

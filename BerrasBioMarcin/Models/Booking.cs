@@ -7,9 +7,9 @@
 
         public Customer Customer { get; set; }
 
-        public Shows Shows { get; set; }
+        public Show Shows { get; set; }
 
-        public Salons Salons { get; set; }
+        public Salon Salons { get; set; }
 
         public Spot Spot { get; set; }
 

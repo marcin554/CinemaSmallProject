@@ -1,4 +1,4 @@
-﻿@model BerrasBioMarcin.Models.Genres
+﻿@model BerrasBioMarcin.Models.Genre
 
 @{
     ViewData["Title"] = "Delete";
@@ -12,15 +12,15 @@
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.GenresName)
+            @Html.DisplayNameFor(model => model.GenreName)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.GenresName)
+            @Html.DisplayFor(model => model.GenreName)
         </dd>
     </dl>
     
     <form asp-action="Delete">
-        <input type="hidden" asp-for="GenresId" />
+        <input type="hidden" asp-for="GenreId" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |
         <a asp-action="Index">Back to List</a>
     </form>

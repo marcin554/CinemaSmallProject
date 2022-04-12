@@ -1,12 +1,12 @@
 ﻿namespace BerrasBioMarcin.Models
 {
-    public class Shows
+    public class Show
     {
-        public int ShowsID { get; set; }
+        public int ShowID { get; set; }
         public Movie Movie { get; set; }
 
         public DateTime ShowDate { get; set; }
 
-        public bool IsShowsCanceled { get; set; }
+        public bool IsShowCanceled { get; set; }
     }
 }

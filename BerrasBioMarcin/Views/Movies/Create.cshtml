@@ -1,4 +1,4 @@
-﻿@model BerrasBioMarcin.Models.Movie
+﻿@model BerrasBioMarcin.ViewModels.MovieViewModel
 
 @{
     ViewData["Title"] = "Create";
@@ -10,7 +10,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Create" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="MovieTitleName" class="control-label"></label>
@@ -23,24 +23,30 @@
                 <span asp-validation-for="MovieReleaseDate" class="text-danger"></span>
             </div>
             <div >
-                <label class="form-label" for="GenresId">Choose genre: </label>
-            <select name="GenresId" class="form-select">
+                <label class="form-label" for="GenreId">Choose genre: </label>
+                <select name="GenreId" class="form-select">
 
                 <option selected>Choose the genre: </option>
-
-                @for (int i = 0; i < ViewBag.Genres.Count; i++){
-                    <option asp-for="GenresName" value="@ViewBag.Genres[i].GenresId">@ViewBag.Genres[i].GenresName </option>
+                    
+                        @for (int i = 0; i < ViewBag.Genres.Count; i++){
+                        <option asp-for="GenreId" value="@ViewBag.Genres[i].GenreId">@ViewBag.Genres[i].GenreName </option>
                     }
+                    
+                    
                 </select>
-                <span asp-validation-for="GenresId" class="text-danger"></span>
+                <span asp-validation-for="GenreId" class="text-danger"></span>
 
             @*Html.DropDownList("Genres", new SelectList(ViewBag.Genres, "GenresId", "GenresName", new { @class = "form-select"}))*@
             </div>
-            <div>
-                <label class="form-label" for="MovieImageUrl">Movie Image</label>
-                <input type="file" class="form-control" id="file1" name="file1" />
 
-            </div>
+            <div class="form-group">  
+                            <label asp-for="MovieImage" class="control-label"></label>  
+                            <div class="custom-file">  
+                                <input asp-for="MovieImage" class="custom-file-input" id="customFile">  
+                                <label class="custom-file-label" for="customFile">Choose file</label>  
+                            </div>  
+                            <span asp-validation-for="MovieImage" class="text-danger"></span>  
+                        </div> 
             <div class="form-group">
                 <label asp-for="Price" class="control-label"></label>
                 <input asp-for="Price" class="form-control" />

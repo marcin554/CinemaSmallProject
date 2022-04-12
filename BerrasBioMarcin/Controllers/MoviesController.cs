@@ -8,21 +8,25 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BerrasBioMarcin.Data;
 using BerrasBioMarcin.Models;
+using BerrasBioMarcin.ViewModels;
 
 namespace BerrasBioMarcin.Controllers
 {
     public class MoviesController : Controller
     {
         private readonly BerrasBioMarcinContext _context;
+        private readonly IWebHostEnvironment webHostEnvironment;
 
-        public MoviesController(BerrasBioMarcinContext context)
+        public MoviesController(BerrasBioMarcinContext context, IWebHostEnvironment hostEnvironment)
         {
             _context = context;
+            webHostEnvironment = hostEnvironment;
         }
 
         // GET: Movies
         public async Task<IActionResult> Index()
         {
+            GetGenres();
             return View(await _context.Movie.ToListAsync());
         }
 
@@ -47,11 +51,8 @@ namespace BerrasBioMarcin.Controllers
         // GET: Movies/Create
         public IActionResult Create()
         {
-            var items = _context.Genres.ToList();
-            if (items != null)
-            {
-                ViewBag.Genres = items;
-            }
+
+            GetGenres();
             return View();
         }
 
@@ -60,15 +61,28 @@ namespace BerrasBioMarcin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("MovieId,MovieTitleName,MovieReleaseDate,GenresId,Price")] Movie movie)
+        public async Task<IActionResult> Create(MovieViewModel viewMovie)
         {
             if (ModelState.IsValid)
             {
+                string uniqueFileName = UploadFile(viewMovie);
+
+                Movie movie = new Movie
+                {
+                    MovieTitleName = viewMovie.MovieTitleName,
+                    MovieReleaseDate = viewMovie.MovieReleaseDate,
+                    GenreId = viewMovie.GenreId,
+                    MoviePath = uniqueFileName,
+                    Price = viewMovie.Price,
+
+                };
+
                 _context.Add(movie);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(movie);
+
+            return View(viewMovie);
         }
 
         // GET: Movies/Edit/5
@@ -154,6 +168,34 @@ namespace BerrasBioMarcin.Controllers
         private bool MovieExists(int id)
         {
             return _context.Movie.Any(e => e.MovieId == id);
+        }
+
+        private string UploadFile (MovieViewModel movie)
+        {
+            string uniqueFileName = null;
+
+            if(movie.MovieImage != null)
+            {
+                string uploadFolder = Path.Combine(webHostEnvironment.WebRootPath, "Content\\MovieImages");
+                uniqueFileName = Guid.NewGuid().ToString() + "_" + movie.MovieImage.FileName;
+                string filePath = Path.Combine(uploadFolder, uniqueFileName);
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    movie.MovieImage.CopyTo(fileStream);
+                }                
+            }
+            return uniqueFileName;
+        }
+
+        private void GetGenres()
+        {
+            var items = _context.Genres.ToList();
+            
+            if (items != null)
+            {
+                ViewBag.Genres = items;
+                
+            }
         }
     }
 }

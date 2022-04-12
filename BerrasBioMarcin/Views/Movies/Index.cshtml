@@ -13,14 +13,32 @@
     <thead>
         <tr>
             <th>
+                Image
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.MovieTitleName)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.MovieReleaseDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.GenresId)
+                @Html.DisplayNameFor(model => model.GenreId)
+                @*@for (int i = 0; i < ViewBag.Genres.Count; i++){
+                        <option asp-for="GenresId" value="@ViewBag.Genres[i].GenresId">@ViewBag.Genres[i].GenresName </option>*@
+
+               
+                
+                
+                
+               
+
+                
             </th>
+            
+            <th>
+                @Html.DisplayNameFor(model => model.MoviePath)
+            </th>
+            
             <th>
                 @Html.DisplayNameFor(model => model.Price)
             </th>
@@ -31,14 +49,41 @@
 @foreach (var item in Model) {
         <tr>
             <td>
+                
+                <img src="~/Content/MovieImages/@item.MoviePath"
+                height="40" width="40"  
+                >
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.MovieTitleName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.MovieReleaseDate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.GenresId)
+               @* @foreach (var genre in ViewBag.Genres)
+                {
+                    int i = 0;
+                    i++;
+                          @if(ViewBag.Genres[i].GenreId == @Html.DisplayNameFor(modelItem => item.GenreId))
+                        {
+                          <text>ViewBag.Genres[i].GenreName</text> 
+                        }
+                 }*@
+                  
+                
+                   @* @Html.DisplayNameFor(modelItem => item.GenreId);
+                    *@
+                 
+                    
+                
+                @Html.DisplayFor(modelItem => item.GenreId)
             </td>
+           
+             <td>
+                @Html.DisplayFor(modelItem => item.MoviePath)
+            </td>
+            
             <td>
                 @Html.DisplayFor(modelItem => item.Price)
             </td>
