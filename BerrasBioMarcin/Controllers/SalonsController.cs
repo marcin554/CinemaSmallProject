@@ -49,7 +49,7 @@ namespace BerrasBioMarcin.Controllers
         // GET: Salons/Create
         public IActionResult Create()
         {
-            ViewData["CinemaId"] = new SelectList(_context.Cinema, "CinemaID", "CinemaID");
+            ViewData["CinemaId"] = new SelectList(_context.Cinema, "CinemaID", "CinemaName");
             return View();
         }
 
@@ -60,6 +60,15 @@ namespace BerrasBioMarcin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("SalonId,SalonName,AvailableSpace,CinemaId")] Salon salon)
         {
+
+            var linqTest = _context.Cinema.Where(e => e.CinemaID == salon.CinemaId).ToList();
+
+            //var linqTest2 = from c in _context.Cinema
+            //                where c.CinemaName == "BerrasBio"
+            //                select c;
+
+            //salon.Cinema = linqTest;
+
             if (ModelState.IsValid)
             {
                 _context.Add(salon);
