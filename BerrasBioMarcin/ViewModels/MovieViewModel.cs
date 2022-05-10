@@ -9,8 +9,11 @@ namespace BerrasBioMarcin.ViewModels
         [Display(Name = "Movie Picture")]
         public IFormFile MovieImage { get; set; }
         public string MovieTitleName { get; set; }
+
+        public string MovieDescription { get; set; }
         public DateTime MovieReleaseDate { get; set; }
         
+
         public int GenreId { get; set; }      
         public double Price { get; set; }
 

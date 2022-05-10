@@ -26,17 +26,17 @@ namespace BerrasBioMarcin.Migrations
 
             modelBuilder.Entity("BerrasBioMarcin.Models.Cinema", b =>
                 {
-                    b.Property<int>("CinemaID")
+                    b.Property<int>("CinemaId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CinemaID"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CinemaId"), 1L, 1);
 
                     b.Property<string>("CinemaName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("CinemaID");
+                    b.HasKey("CinemaId");
 
                     b.ToTable("Cinema");
                 });

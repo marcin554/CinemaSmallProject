@@ -49,7 +49,7 @@ namespace BerrasBioMarcin.Controllers
         // GET: Salons/Create
         public IActionResult Create()
         {
-            ViewData["CinemaId"] = new SelectList(_context.Cinema, "CinemaID", "CinemaName");
+            ViewData["CinemaId"] = new SelectList(_context.Cinema, "CinemaId", "CinemaId");
             return View();
         }
 
@@ -60,22 +60,13 @@ namespace BerrasBioMarcin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("SalonId,SalonName,AvailableSpace,CinemaId")] Salon salon)
         {
-
-            var linqTest = _context.Cinema.Where(e => e.CinemaID == salon.CinemaId).ToList();
-
-            //var linqTest2 = from c in _context.Cinema
-            //                where c.CinemaName == "BerrasBio"
-            //                select c;
-
-            //salon.Cinema = linqTest;
-
             if (ModelState.IsValid)
             {
                 _context.Add(salon);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CinemaId"] = new SelectList(_context.Cinema, "CinemaID", "CinemaID", salon.CinemaId);
+            ViewData["CinemaId"] = new SelectList(_context.Cinema, "CinemaId", "CinemaId", salon.CinemaId);
             return View(salon);
         }
 
@@ -92,7 +83,7 @@ namespace BerrasBioMarcin.Controllers
             {
                 return NotFound();
             }
-            ViewData["CinemaId"] = new SelectList(_context.Cinema, "CinemaID", "CinemaID", salon.CinemaId);
+            ViewData["CinemaId"] = new SelectList(_context.Cinema, "CinemaId", "CinemaId", salon.CinemaId);
             return View(salon);
         }
 
@@ -128,7 +119,7 @@ namespace BerrasBioMarcin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CinemaId"] = new SelectList(_context.Cinema, "CinemaID", "CinemaID", salon.CinemaId);
+            ViewData["CinemaId"] = new SelectList(_context.Cinema, "CinemaId", "CinemaId", salon.CinemaId);
             return View(salon);
         }
 
@@ -162,6 +153,7 @@ namespace BerrasBioMarcin.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+      
         private bool SalonExists(int id)
         {
             return _context.Salon.Any(e => e.SalonId == id);

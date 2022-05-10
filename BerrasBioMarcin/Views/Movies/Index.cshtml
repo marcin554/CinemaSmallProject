@@ -18,21 +18,15 @@
             <th>
                 @Html.DisplayNameFor(model => model.MovieTitleName)
             </th>
+             <th>
+                @Html.DisplayNameFor(model => model.MovieDescription)
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.MovieReleaseDate)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.GenreId)
-                @*@for (int i = 0; i < ViewBag.Genres.Count; i++){
-                        <option asp-for="GenresId" value="@ViewBag.Genres[i].GenresId">@ViewBag.Genres[i].GenresName </option>*@
-
-               
-                
-                
-                
-               
-
-                
+            
             </th>
             
             <th>
@@ -58,24 +52,13 @@
                 @Html.DisplayFor(modelItem => item.MovieTitleName)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.MovieDescription)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.MovieReleaseDate)
             </td>
             <td>
-               @* @foreach (var genre in ViewBag.Genres)
-                {
-                    int i = 0;
-                    i++;
-                          @if(ViewBag.Genres[i].GenreId == @Html.DisplayNameFor(modelItem => item.GenreId))
-                        {
-                          <text>ViewBag.Genres[i].GenreName</text> 
-                        }
-                 }*@
-                  
-                
-                   @* @Html.DisplayNameFor(modelItem => item.GenreId);
-                    *@
-                 
-                    
+         
                 
                 @Html.DisplayFor(modelItem => item.GenreId)
             </td>
@@ -87,6 +70,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Price)
             </td>
+            
             <td>
                 <a asp-action="Edit" asp-route-id="@item.MovieId">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.MovieId">Details</a> |

@@ -2,8 +2,9 @@
 {
     public class Cinema
     {
-        public int CinemaID { get; set; }
+        public int CinemaId { get; set; }
 
         public string CinemaName { get; set; }
+
     }
 }

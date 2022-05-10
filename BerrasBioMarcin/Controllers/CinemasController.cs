@@ -34,7 +34,7 @@ namespace BerrasBioMarcin.Models
             }
 
             var cinema = await _context.Cinema
-                .FirstOrDefaultAsync(m => m.CinemaID == id);
+                .FirstOrDefaultAsync(m => m.CinemaId == id);
             if (cinema == null)
             {
                 return NotFound();
@@ -54,7 +54,7 @@ namespace BerrasBioMarcin.Models
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CinemaID,CinemaName")] Cinema cinema)
+        public async Task<IActionResult> Create([Bind("CinemaId,CinemaName")] Cinema cinema)
         {
             if (ModelState.IsValid)
             {
@@ -86,9 +86,9 @@ namespace BerrasBioMarcin.Models
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CinemaID,CinemaName")] Cinema cinema)
+        public async Task<IActionResult> Edit(int id, [Bind("CinemaId,CinemaName")] Cinema cinema)
         {
-            if (id != cinema.CinemaID)
+            if (id != cinema.CinemaId)
             {
                 return NotFound();
             }
@@ -102,7 +102,7 @@ namespace BerrasBioMarcin.Models
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CinemaExists(cinema.CinemaID))
+                    if (!CinemaExists(cinema.CinemaId))
                     {
                         return NotFound();
                     }
@@ -125,7 +125,7 @@ namespace BerrasBioMarcin.Models
             }
 
             var cinema = await _context.Cinema
-                .FirstOrDefaultAsync(m => m.CinemaID == id);
+                .FirstOrDefaultAsync(m => m.CinemaId == id);
             if (cinema == null)
             {
                 return NotFound();
@@ -147,7 +147,7 @@ namespace BerrasBioMarcin.Models
 
         private bool CinemaExists(int id)
         {
-            return _context.Cinema.Any(e => e.CinemaID == id);
+            return _context.Cinema.Any(e => e.CinemaId == id);
         }
     }
 }

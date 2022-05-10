@@ -48,7 +48,7 @@ namespace BerrasBioMarcin.Migrations
                         name: "FK_Salon_Cinema_CinemaID",
                         column: x => x.CinemaID,
                         principalTable: "Cinema",
-                        principalColumn: "CinemaID",
+                        principalColumn: "CinemaId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Salon_Show_ShowsShowID",
@@ -60,7 +60,7 @@ namespace BerrasBioMarcin.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Salon_CinemaID",
                 table: "Salon",
-                column: "CinemaID");
+                column: "CinemaId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Salon_ShowsShowID",

@@ -25,6 +25,12 @@ namespace BerrasBioMarcin.Data
 
         public DbSet<BerrasBioMarcin.Models.Salon> Salon { get; set; }
 
+        public DbSet<BerrasBioMarcin.Models.Show> Show { get; set; }
+
+        public DbSet<BerrasBioMarcin.Models.Spot> Spot { get; set; }
+
+        public DbSet<BerrasBioMarcin.Models.Booking> Booking { get; set; }
+
 
     }
 }

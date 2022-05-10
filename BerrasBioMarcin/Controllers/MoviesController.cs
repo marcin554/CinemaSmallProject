@@ -70,6 +70,7 @@ namespace BerrasBioMarcin.Controllers
                 Movie movie = new Movie
                 {
                     MovieTitleName = viewMovie.MovieTitleName,
+                    MovieDescription = viewMovie.MovieDescription,
                     MovieReleaseDate = viewMovie.MovieReleaseDate,
                     GenreId = viewMovie.GenreId,
                     MoviePath = uniqueFileName,
@@ -106,7 +107,7 @@ namespace BerrasBioMarcin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("MovieId,MovieTitleName,MovieReleaseDate,GenresId,Price")] Movie movie)
+        public async Task<IActionResult> Edit(int id, [Bind("MovieId,MovieTitleName,MovieDescription,MovieReleaseDate,GenresId,Price")] Movie movie)
         {
             if (id != movie.MovieId)
             {

@@ -13,7 +13,7 @@ namespace BerrasBioMarcin.Migrations
                 table: "Salon");
 
             migrationBuilder.RenameColumn(
-                name: "CinemaID",
+                name: "CinemaId",
                 table: "Salon",
                 newName: "CinemaId");
 
@@ -27,7 +27,7 @@ namespace BerrasBioMarcin.Migrations
                 table: "Salon",
                 column: "CinemaId",
                 principalTable: "Cinema",
-                principalColumn: "CinemaID",
+                principalColumn: "CinemaId",
                 onDelete: ReferentialAction.Cascade);
         }
 
@@ -40,7 +40,7 @@ namespace BerrasBioMarcin.Migrations
             migrationBuilder.RenameColumn(
                 name: "CinemaId",
                 table: "Salon",
-                newName: "CinemaID");
+                newName: "CinemaId");
 
             migrationBuilder.RenameIndex(
                 name: "IX_Salon_CinemaId",
@@ -50,9 +50,9 @@ namespace BerrasBioMarcin.Migrations
             migrationBuilder.AddForeignKey(
                 name: "FK_Salon_Cinema_CinemaID",
                 table: "Salon",
-                column: "CinemaID",
+                column: "CinemaId",
                 principalTable: "Cinema",
-                principalColumn: "CinemaID",
+                principalColumn: "CinemaId",
                 onDelete: ReferentialAction.Cascade);
         }
     }

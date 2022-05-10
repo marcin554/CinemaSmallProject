@@ -17,24 +17,48 @@ namespace BerrasBioMarcin.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.3")
+                .HasAnnotation("ProductVersion", "6.0.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("BerrasBioMarcin.Models.Cinema", b =>
+            modelBuilder.Entity("BerrasBioMarcin.Models.Booking", b =>
                 {
-                    b.Property<int>("CinemaID")
+                    b.Property<int>("BookingID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CinemaID"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BookingID"), 1L, 1);
+
+                    b.Property<int>("AmountSeats")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("BookingCanceled")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("ShowsID")
+                        .HasColumnType("int");
+
+                    b.HasKey("BookingID");
+
+                    b.HasIndex("ShowsID");
+
+                    b.ToTable("Booking");
+                });
+
+            modelBuilder.Entity("BerrasBioMarcin.Models.Cinema", b =>
+                {
+                    b.Property<int>("CinemaId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CinemaId"), 1L, 1);
 
                     b.Property<string>("CinemaName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("CinemaID");
+                    b.HasKey("CinemaId");
 
                     b.ToTable("Cinema");
                 });
@@ -111,6 +135,9 @@ namespace BerrasBioMarcin.Migrations
                     b.Property<int>("GenreId")
                         .HasColumnType("int");
 
+                    b.Property<string>("MovieDescription")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("MoviePath")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -186,6 +213,48 @@ namespace BerrasBioMarcin.Migrations
                     b.ToTable("Show");
                 });
 
+            modelBuilder.Entity("BerrasBioMarcin.Models.Spot", b =>
+                {
+                    b.Property<int>("SpotID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SpotID"), 1L, 1);
+
+                    b.Property<int?>("BookingId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SalonId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ShowId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("SpotIsTaken")
+                        .HasColumnType("bit");
+
+                    b.HasKey("SpotID");
+
+                    b.HasIndex("BookingId");
+
+                    b.HasIndex("SalonId");
+
+                    b.HasIndex("ShowId");
+
+                    b.ToTable("Spot");
+                });
+
+            modelBuilder.Entity("BerrasBioMarcin.Models.Booking", b =>
+                {
+                    b.HasOne("BerrasBioMarcin.Models.Show", "Shows")
+                        .WithMany("Bookings")
+                        .HasForeignKey("ShowsID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Shows");
+                });
+
             modelBuilder.Entity("BerrasBioMarcin.Models.Movie", b =>
                 {
                     b.HasOne("BerrasBioMarcin.Models.Genre", "Genre")
@@ -216,16 +285,48 @@ namespace BerrasBioMarcin.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("BerrasBioMarcin.Models.Salon", null)
+                    b.HasOne("BerrasBioMarcin.Models.Salon", "Salon")
                         .WithMany("Shows")
                         .HasForeignKey("SalonId");
 
                     b.Navigation("Movie");
+
+                    b.Navigation("Salon");
+                });
+
+            modelBuilder.Entity("BerrasBioMarcin.Models.Spot", b =>
+                {
+                    b.HasOne("BerrasBioMarcin.Models.Booking", "Booking")
+                        .WithMany()
+                        .HasForeignKey("BookingId");
+
+                    b.HasOne("BerrasBioMarcin.Models.Salon", "Salon")
+                        .WithMany()
+                        .HasForeignKey("SalonId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BerrasBioMarcin.Models.Show", "Shows")
+                        .WithMany("Spots")
+                        .HasForeignKey("ShowId");
+
+                    b.Navigation("Booking");
+
+                    b.Navigation("Salon");
+
+                    b.Navigation("Shows");
                 });
 
             modelBuilder.Entity("BerrasBioMarcin.Models.Salon", b =>
                 {
                     b.Navigation("Shows");
+                });
+
+            modelBuilder.Entity("BerrasBioMarcin.Models.Show", b =>
+                {
+                    b.Navigation("Bookings");
+
+                    b.Navigation("Spots");
                 });
 #pragma warning restore 612, 618
         }

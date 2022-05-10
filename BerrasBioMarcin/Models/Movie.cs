@@ -15,6 +15,8 @@ namespace BerrasBioMarcin.Models
         public string MovieTitleName { get; set; }
 
 
+        public string? MovieDescription { get; set; }
+
         [Required]
         public DateTime MovieReleaseDate { get; set; }
 

@@ -26,17 +26,17 @@ namespace BerrasBioMarcin.Migrations
 
             modelBuilder.Entity("BerrasBioMarcin.Models.Cinema", b =>
                 {
-                    b.Property<int>("CinemaID")
+                    b.Property<int>("CinemaId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CinemaID"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CinemaId"), 1L, 1);
 
                     b.Property<string>("CinemaName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("CinemaID");
+                    b.HasKey("CinemaId");
 
                     b.ToTable("Cinema");
                 });
@@ -145,7 +145,7 @@ namespace BerrasBioMarcin.Migrations
                     b.Property<int>("AvailableSpace")
                         .HasColumnType("int");
 
-                    b.Property<int>("CinemaID")
+                    b.Property<int>("CinemaId")
                         .HasColumnType("int");
 
                     b.Property<string>("SalonName")
@@ -154,7 +154,7 @@ namespace BerrasBioMarcin.Migrations
 
                     b.HasKey("SalonId");
 
-                    b.HasIndex("CinemaID");
+                    b.HasIndex("CinemaId");
 
                     b.ToTable("Salon");
                 });
@@ -203,7 +203,7 @@ namespace BerrasBioMarcin.Migrations
                 {
                     b.HasOne("BerrasBioMarcin.Models.Cinema", "Cinema")
                         .WithMany()
-                        .HasForeignKey("CinemaID")
+                        .HasForeignKey("CinemaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

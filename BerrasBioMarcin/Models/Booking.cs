@@ -1,18 +1,19 @@
-﻿namespace BerrasBioMarcin.Models
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace BerrasBioMarcin.Models
 {
     public class Booking
     {
 
         public int BookingID { get; set; }
 
-        public Customer Customer { get; set; }
+        [Range(1, 12)]
+        public int AmountSeats { get; set; }
+        
+        public int ShowsID { get; set; }
+        public virtual Show? Shows { get; set; }
 
-        public Show Shows { get; set; }
-
-        public Salon Salons { get; set; }
-
-        public Spot Spot { get; set; }
-
-        public bool BookingCanceled { get; set; }
+        public bool BookingCanceled { get; set; } = false;
     }
 }

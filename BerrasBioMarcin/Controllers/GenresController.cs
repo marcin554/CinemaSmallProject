@@ -34,14 +34,14 @@ namespace BerrasBioMarcin.Controllers
                 return NotFound();
             }
 
-            var genres = await _context.Genres
+            var genre = await _context.Genres
                 .FirstOrDefaultAsync(m => m.GenreId == id);
-            if (genres == null)
+            if (genre == null)
             {
                 return NotFound();
             }
 
-            return View(genres);
+            return View(genre);
         }
 
         // GET: Genres/Create
@@ -55,15 +55,15 @@ namespace BerrasBioMarcin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("GenresId,GenresName")] Genre genres)
+        public async Task<IActionResult> Create([Bind("GenreId,GenreName")] Genre genre)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(genres);
+                _context.Add(genre);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(genres);
+            return View(genre);
         }
 
         // GET: Genres/Edit/5
@@ -74,12 +74,12 @@ namespace BerrasBioMarcin.Controllers
                 return NotFound();
             }
 
-            var genres = await _context.Genres.FindAsync(id);
-            if (genres == null)
+            var genre = await _context.Genres.FindAsync(id);
+            if (genre == null)
             {
                 return NotFound();
             }
-            return View(genres);
+            return View(genre);
         }
 
         // POST: Genres/Edit/5
@@ -87,9 +87,9 @@ namespace BerrasBioMarcin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("GenreId,GenreName")] Genre genres)
+        public async Task<IActionResult> Edit(int id, [Bind("GenreId,GenreName")] Genre genre)
         {
-            if (id != genres.GenreId)
+            if (id != genre.GenreId)
             {
                 return NotFound();
             }
@@ -98,12 +98,12 @@ namespace BerrasBioMarcin.Controllers
             {
                 try
                 {
-                    _context.Update(genres);
+                    _context.Update(genre);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!GenresExists(genres.GenreId))
+                    if (!GenreExists(genre.GenreId))
                     {
                         return NotFound();
                     }
@@ -114,7 +114,7 @@ namespace BerrasBioMarcin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(genres);
+            return View(genre);
         }
 
         // GET: Genres/Delete/5
@@ -125,14 +125,14 @@ namespace BerrasBioMarcin.Controllers
                 return NotFound();
             }
 
-            var genres = await _context.Genres
+            var genre = await _context.Genres
                 .FirstOrDefaultAsync(m => m.GenreId == id);
-            if (genres == null)
+            if (genre == null)
             {
                 return NotFound();
             }
 
-            return View(genres);
+            return View(genre);
         }
 
         // POST: Genres/Delete/5
@@ -140,13 +140,13 @@ namespace BerrasBioMarcin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var genres = await _context.Genres.FindAsync(id);
-            _context.Genres.Remove(genres);
+            var genre = await _context.Genres.FindAsync(id);
+            _context.Genres.Remove(genre);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool GenresExists(int id)
+        private bool GenreExists(int id)
         {
             return _context.Genres.Any(e => e.GenreId == id);
         }

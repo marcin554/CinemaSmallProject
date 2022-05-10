@@ -18,6 +18,11 @@
                 <span asp-validation-for="MovieTitleName" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="MovieDescription" class="control-label"></label>
+                <textarea class="form-control" asp-for="MovieDescription" rows="3"></textarea>
+                <span asp-validation-for="MovieDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="MovieReleaseDate" class="control-label"></label>
                 <input asp-for="MovieReleaseDate" class="form-control" />
                 <span asp-validation-for="MovieReleaseDate" class="text-danger"></span>
@@ -36,7 +41,7 @@
                 </select>
                 <span asp-validation-for="GenreId" class="text-danger"></span>
 
-            @*Html.DropDownList("Genres", new SelectList(ViewBag.Genres, "GenresId", "GenresName", new { @class = "form-select"}))*@
+            
             </div>
 
             <div class="form-group">  
@@ -46,7 +51,8 @@
                                 <label class="custom-file-label" for="customFile">Choose file</label>  
                             </div>  
                             <span asp-validation-for="MovieImage" class="text-danger"></span>  
-                        </div> 
+              </div> 
+
             <div class="form-group">
                 <label asp-for="Price" class="control-label"></label>
                 <input asp-for="Price" class="form-control" />
