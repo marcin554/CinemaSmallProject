@@ -34,6 +34,12 @@
                 @Html.DisplayFor(modelItem => item.ShowDate)
             </td>
             <td>
+                
+                <img src="~/Content/MovieImages/@item.Movie.MoviePath"
+                height="400" width="300"  
+                >
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.IsShowCanceled)
             </td>
             <td>
