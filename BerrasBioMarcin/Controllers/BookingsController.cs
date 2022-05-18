@@ -78,17 +78,25 @@ namespace BerrasBioMarcin.Controllers
                 _context.Add(booking);
                 for (int i = 0; i < booking.AmountSeats; i++)
                 {
-                    var spots = _context.Spot.Where(s => s.ShowId == booking.ShowsID).SingleOrDefault();
+                    Spot spots = _context.Spot.Where(s => s.ShowId == booking.ShowsID).Where(s => s.SpotIsTaken != true).FirstOrDefault();
 
-                    if (spots.SpotIsTaken == false)
+
+                    if (spots == null)
+                    {
+                        
+                    }
+                    else if (spots.SpotIsTaken == false)
                     {
                         spots.BookingId = booking.BookingID;
                         spots.SpotIsTaken = true;
 
-                        _context.Entry(spots).CurrentValues.SetValues(spots);
+                        _context.Update(spots);
+                        await _context.SaveChangesAsync();
                     }
+                    
+                   
                 }
-                await _context.SaveChangesAsync();
+               
                 return RedirectToAction(nameof(Index));
             }
             ViewData["ShowsID"] = new SelectList(_context.Show, "ShowID", "ShowID", booking.ShowsID);

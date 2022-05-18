@@ -19,7 +19,6 @@ namespace BerrasBioMarcin.Models
 
         public int? BookingId { get; set; }
 
-        public virtual Booking? Booking { get; set; }
 
     }
 }

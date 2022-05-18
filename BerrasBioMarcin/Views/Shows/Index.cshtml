@@ -16,20 +16,43 @@
                 @Html.DisplayNameFor(model => model.ShowDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IsShowCanceled)
+                Movie
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Movie.MovieTitleName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Movie.MovieDescription)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Salon)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Movie)
+                Spots
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
+@foreach (Show item in Model) {
+            
+
+            
+                int a = item.Salon.AvailableSpace;
+
+                @foreach (Spot b in item.Spots)
+                {
+                    if (b.SpotIsTaken == true)
+                    {
+                        a--;
+                    }   
+                }
+            
+            if (a == 0 )
+            {
+
+            }
+            <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.ShowDate)
             </td>
@@ -40,24 +63,20 @@
                 >
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.IsShowCanceled)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Salon.SalonId)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.Movie.MovieTitleName)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.Movie.MovieDescription)
+            </td>
+            <td>
+                
+                @Html.DisplayFor(modelItem => item.Salon.SalonId)
+            </td>
+            
+            <td>
                     @{
-                        int a = item.Salon.AvailableSpace;
-
-                        foreach (var b in item.Spots)
-                        {
-                            a--;
-                        }
-                        @a;
-
+                        
+                        @a  <text>/</text> @item.Salon.AvailableSpace; 
 
                     }
             </td>

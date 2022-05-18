@@ -64,8 +64,20 @@ namespace BerrasBioMarcin.Controllers
         {
             if (ModelState.IsValid)
             {
+                var a = _context.Salon.Where(a => a.SalonId == spot.SalonId).SingleOrDefault();
+                Salon b = (Salon)a;
+
+                for (int i = 0; i < b.AvailableSpace ; i++)
+                {
+                    Spot spot1 = new Spot
+                    {
+                        SalonId = spot.SalonId,
+                        ShowId = spot.ShowId,
+
+                    };
+                    _context.Add(spot1);
+                }
                 
-                _context.Add(spot);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
