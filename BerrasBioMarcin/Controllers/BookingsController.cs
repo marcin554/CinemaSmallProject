@@ -64,45 +64,71 @@ namespace BerrasBioMarcin.Controllers
         {
             if (ModelState.IsValid)
             {
-                //Movie movie = new Movie
-                //{
-                //    MovieTitleName = viewMovie.MovieTitleName,
-                //    MovieDescription = viewMovie.MovieDescription,
-                //    MovieReleaseDate = viewMovie.MovieReleaseDate,
-                //    GenreId = viewMovie.GenreId,
-                //    MoviePath = uniqueFileName,
-                //    Price = viewMovie.Price,
+                // Getting the objects that have same ID as the booking got. 
+                Show show = _context.Show.Where(s => s.ShowID == booking.ShowsID).FirstOrDefault();
+                Movie movie = _context.Movie.Where(s => s.MovieId == show.MovieId).FirstOrDefault();
 
-                //};
-               
+                //Using CountHowManyFreeSeats to count how many free slots are left in show.
+                int c = CountHowManyFreeSeats(booking);
+
+                
+                booking.TotalPrice = (int?)(booking.AmountSeats * movie.Price);
+                booking.TimeWhen = show.ShowDate;
                 _context.Add(booking);
-                for (int i = 0; i < booking.AmountSeats; i++)
+
+                //if c have slots for the amount the customer wanted to run it
+                if (c >= booking.AmountSeats)
                 {
-                    Spot spots = _context.Spot.Where(s => s.ShowId == booking.ShowsID).Where(s => s.SpotIsTaken != true).FirstOrDefault();
-
-
-                    if (spots == null)
+                    //It run code as many times as many times customer picked slots.
+                    for (int i = 0; i < booking.AmountSeats; i++)
                     {
-                        
-                    }
-                    else if (spots.SpotIsTaken == false)
-                    {
-                        spots.BookingId = booking.BookingID;
-                        spots.SpotIsTaken = true;
+                        //It get the spots that are in that show and check if the spot is empty.
+                        Spot spots = _context.Spot.Where(s => s.ShowId == booking.ShowsID).Where(s => s.SpotIsTaken != true).FirstOrDefault();
 
-                        _context.Update(spots);
-                        await _context.SaveChangesAsync();
+                       
+                        if (spots == null)
+                        {
+
+                        }
+                        // check again if the slot is empty or not.
+                        else if (spots.SpotIsTaken == false)
+                        {
+
+                           
+                            spots.BookingId = booking.BookingID;
+                            spots.SpotIsTaken = true;
+
+                            _context.Update(spots);
+                            await _context.SaveChangesAsync();
+
+                        }
                     }
-                    
-                   
+                    return RedirectToAction("BookingResult", "Bookings", booking);
                 }
-               
-                return RedirectToAction(nameof(Index));
+
+                //else show message that there isnt enough seats.
+                else
+                {
+                    ViewBag.ErrorMessage = "Not enough seats.";
+                }
+                
+                
             }
             ViewData["ShowsID"] = new SelectList(_context.Show, "ShowID", "ShowID", booking.ShowsID);
             return View(booking);
         }
 
+
+
+        public async Task<IActionResult> BookingResult(Booking booking)
+        {
+            Show shows = _context.Show.Where(s => s.ShowID == booking.ShowsID).FirstOrDefault();
+            Movie movie = _context.Movie.Where(s => s.MovieId == shows.MovieId).FirstOrDefault();
+
+
+            return View(booking);
+
+        }
         // GET: Bookings/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -189,6 +215,25 @@ namespace BerrasBioMarcin.Controllers
         private bool BookingExists(int id)
         {
             return _context.Booking.Any(e => e.BookingID == id);
+        }
+
+        //Checking how many slots are left in a show. Its getting the booking information Create function got. Its returning the amount of slots left. 
+        public int CountHowManyFreeSeats(Booking booking) 
+        {
+            Show show = _context.Show.Where(s => s.ShowID == booking.ShowsID).FirstOrDefault();
+            Salon salon = _context.Salon.Where(s => s.SalonId == show.SalonId).FirstOrDefault();
+
+            int b = 0;
+            for (int i = 0; i < salon.AvailableSpace; i++)
+            {
+
+                IQueryable<Spot> spots = _context.Spot.Where(s => s.ShowId == booking.ShowsID).Where(s => s.SpotIsTaken != true);
+                b = spots.Count();
+
+                
+
+            }
+            return b;
         }
     }
 }

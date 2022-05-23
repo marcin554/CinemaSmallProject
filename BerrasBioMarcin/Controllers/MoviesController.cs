@@ -65,8 +65,10 @@ namespace BerrasBioMarcin.Controllers
         {
             if (ModelState.IsValid)
             {
+                //Using method to generate filename. And to save it on the desktop. 
                 string uniqueFileName = UploadFile(viewMovie);
 
+                //Creating new movie.
                 Movie movie = new Movie
                 {
                     MovieTitleName = viewMovie.MovieTitleName,
@@ -171,6 +173,7 @@ namespace BerrasBioMarcin.Controllers
             return _context.Movie.Any(e => e.MovieId == id);
         }
 
+        //Using method to generate filename. And to save it on the desktop. 
         private string UploadFile (MovieViewModel movie)
         {
             string uniqueFileName = null;
@@ -187,7 +190,7 @@ namespace BerrasBioMarcin.Controllers
             }
             return uniqueFileName;
         }
-
+        //getting the genres (did it before i knew that the scaffolding can do it for you, if you configure the model correctly.) The "proper" method is used in other controllers.
         private void GetGenres()
         {
             var items = _context.Genres.ToList();

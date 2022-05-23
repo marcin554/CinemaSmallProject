@@ -4,6 +4,7 @@ using BerrasBioMarcin.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BerrasBioMarcin.Migrations
 {
     [DbContext(typeof(BerrasBioMarcinContext))]
-    partial class BerrasBioMarcinContextModelSnapshot : ModelSnapshot
+    [Migration("20220519101650_V333")]
+    partial class V333
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -37,12 +39,6 @@ namespace BerrasBioMarcin.Migrations
                         .HasColumnType("bit");
 
                     b.Property<int>("ShowsID")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("TimeWhen")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("TotalPrice")
                         .HasColumnType("int");
 
                     b.HasKey("BookingID");

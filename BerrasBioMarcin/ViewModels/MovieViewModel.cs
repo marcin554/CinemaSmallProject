@@ -8,6 +8,9 @@ namespace BerrasBioMarcin.ViewModels
         [Required(ErrorMessage = "Please choose a Movie Image")]
         [Display(Name = "Movie Picture")]
         public IFormFile MovieImage { get; set; }
+
+        [Required(ErrorMessage = "Please write the movie Title")]
+        [Display(Name = "Movie")]
         public string MovieTitleName { get; set; }
 
         public string MovieDescription { get; set; }

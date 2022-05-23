@@ -9,18 +9,26 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
+
+<table class="table " >
     <thead>
+
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.ShowDate)
+                @Html.DisplayNameFor(model => model.ShowID)
+
             </th>
             <th>
-                Movie
+                @Html.DisplayNameFor(model => model.ShowDate)
+
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Movie.MovieTitleName)
             </th>
+            <th>
+                Movie
+            </th>
+            
             <th>
                 @Html.DisplayNameFor(model => model.Movie.MovieDescription)
             </th>
@@ -46,25 +54,31 @@
                     {
                         a--;
                     }   
-                }
-            
-            if (a == 0 )
-            {
-
             }
-            <tr>
+
+
+            
+            
+          <tr class="@(@a == 0 ? "opacityTables" : "0.5")">
+            
+            
+              <td>
+                @Html.DisplayFor(modelItem => item.ShowID)
+                
+            </td>     
             <td>
                 @Html.DisplayFor(modelItem => item.ShowDate)
-            </td>
-            <td>
                 
+            </td>
+             <td>
+                @Html.DisplayFor(modelItem => item.Movie.MovieTitleName)
+            </td>
+            <td>             
                 <img src="~/Content/MovieImages/@item.Movie.MoviePath"
                 height="400" width="300"  
                 >
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Movie.MovieTitleName)
-            </td>
+           
             <td>
                 @Html.DisplayFor(modelItem => item.Movie.MovieDescription)
             </td>
@@ -76,16 +90,17 @@
             <td>
                     @{
                         
-                        @a  <text>/</text> @item.Salon.AvailableSpace; 
+                        @a  <text>/</text> @item.Salon.AvailableSpace
+                        ;
 
                     }
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ShowID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ShowID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ShowID">Delete</a>
+                </td>
+                <td>      
+                <a asp-action="Create" asp-controller="Bookings">Booking</a> 
+            
             </td>
         </tr>
+
 }
     </tbody>
 </table>

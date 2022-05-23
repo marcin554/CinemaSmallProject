@@ -4,16 +4,15 @@ namespace BerrasBioMarcin.Models
 {
     public class Show
     {
-        [Required(ErrorMessage="1")]
+       
         public int ShowID { get; set; }
         
-        [Required(ErrorMessage = "3")]
+        
         public DateTime ShowDate { get; set; }
-        [Required(ErrorMessage = "4")]
+        
         public bool IsShowCanceled { get; set; } = false;
 
 
-        [Required(ErrorMessage = "2")]
         public int MovieId { get; set; }
 
         public int? SalonId { get; set; }

@@ -15,5 +15,9 @@ namespace BerrasBioMarcin.Models
         public virtual Show? Shows { get; set; }
 
         public bool BookingCanceled { get; set; } = false;
+
+        public int? TotalPrice { get; set; }
+
+        public DateTime TimeWhen { get; set; }
     }
 }

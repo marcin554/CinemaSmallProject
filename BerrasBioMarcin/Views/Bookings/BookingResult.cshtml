@@ -1,0 +1,43 @@
+﻿@model BerrasBioMarcin.Models.Booking
+
+@{
+    ViewData["Title"] = "BookingResult";
+}
+
+<h1>Booking</h1>
+
+<div>
+    <h4>Booking Summary:</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.AmountSeats)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.AmountSeats)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Shows)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ShowsID)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.BookingCanceled)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.BookingCanceled)
+        </dd>
+        <dt class = "col-sm-2"> @Html.DisplayNameFor(model => model.TotalPrice) </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TotalPrice)
+        </dd>
+        <dt class = "col-sm-2"> @Html.DisplayNameFor(model => model.Shows.ShowDate) </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TimeWhen)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Index" asp-controller="Shows">Back to List</a>
+</div>

@@ -64,10 +64,11 @@ namespace BerrasBioMarcin.Controllers
         {
             if (ModelState.IsValid)
             {
-                var a = _context.Salon.Where(a => a.SalonId == spot.SalonId).SingleOrDefault();
-                Salon b = (Salon)a;
-
-                for (int i = 0; i < b.AvailableSpace ; i++)
+                //getting the Salon object, where the spot salonid match Salon entry.
+                Salon a = _context.Salon.Where(a => a.SalonId == spot.SalonId).FirstOrDefault();
+                
+                //Add as many slots as the Salon have spots.
+                for (int i = 0; i < a.AvailableSpace ; i++)
                 {
                     Spot spot1 = new Spot
                     {
@@ -79,7 +80,7 @@ namespace BerrasBioMarcin.Controllers
                 }
                 
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Shows");
             }
             ViewData["SalonId"] = new SelectList(_context.Salon, "SalonId", "SalonId", spot.SalonId);
             ViewData["ShowId"] = new SelectList(_context.Show, "ShowID", "ShowID", spot.ShowId);

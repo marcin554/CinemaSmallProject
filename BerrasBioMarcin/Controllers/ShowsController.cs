@@ -50,8 +50,8 @@ namespace BerrasBioMarcin.Controllers
         // GET: Shows/Create
         public IActionResult Create()
         {
-            ViewData["MovieId"] = new SelectList(_context.Movie, "MovieId", "MoviePath");
-            ViewData["SalonId"] = new SelectList(_context.Salon, "SalonId", "SalonId");
+            ViewData["MovieId"] = new SelectList(_context.Movie, "MovieId", "MovieTitleName");
+            ViewData["SalonId"] = new SelectList(_context.Salon, "SalonId", "SalonName");
             return View();
         }
 
@@ -65,12 +65,16 @@ namespace BerrasBioMarcin.Controllers
             if (ModelState.IsValid)
             {
                 _context.Add(show);
+
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                
+                return RedirectToAction("Create", "Spots");
             }
-            ViewData["MovieId"] = new SelectList(_context.Movie, "MovieId", "MoviePath", show.MovieId);
-            ViewData["SalonId"] = new SelectList(_context.Salon, "SalonId", "SalonId", show.SalonId);
+
+            ViewData["MovieId"] = new SelectList(_context.Movie, "MovieId", "MovieTitleName", show.MovieId);
+            ViewData["SalonId"] = new SelectList(_context.Salon, "SalonId", "SalonName", show.SalonId);
             return View(show);
+
         }
 
         // GET: Shows/Edit/5
